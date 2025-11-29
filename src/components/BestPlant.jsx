@@ -9,7 +9,6 @@ const BestPlant = ({ plantOfWeek }) => {
             <div className="max-w-6xl mx-auto">
                 <div className="bg-green-100 rounded-3xl overflow-hidden shadow-lg">
                     <div className="grid grid-cols-1 md:grid-cols-2 items-center">
-                        {/* Text Side */}
                         <div className="p-12 flex flex-col justify-center">
                             <h2 className="text-4xl font-bold text-black mb-4">
                                 Plant of the Week
@@ -25,7 +24,7 @@ const BestPlant = ({ plantOfWeek }) => {
                             </p>
                             <Link 
                                 to={`/plant/${plantOfWeek.plantId}`}
-                                className="btn-three w-fit"
+                                className="btn-three w-md text-center"
                             >
                                 See details
                             </Link>

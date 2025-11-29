@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Shihab Uddin",
     "specialization": "Specializes in low-light plant maintenance and air-purifying varieties",
-    "image": "/src/assets/gardeners/1.jpg"
+    "image": "/src/assets/gardeners/1.png"
   },
   {
     "id": 2,
@@ -15,12 +15,12 @@
     "id": 3,
     "name": "Rohit Roy",
     "specialization": "Focuses on drought-tolerant plants and minimalist arrangements",
-    "image": "/src/assets/gardeners/3.jpg"
+    "image": "/src/assets/gardeners/2.png"
   },
   {
     "id": 4,
     "name": "Grace Miller",
     "specialization": "Guides users on organic fertilizers and seasonal feeding schedules",
-    "image": "/src/assets/gardeners/4.jpg"
+    "image": "/src/assets/gardeners/4.jpg" 
   }
 ]

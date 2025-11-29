@@ -5,7 +5,7 @@ import { updateProfile } from 'firebase/auth';
 import { FaUser, FaEnvelope, FaImage, FaEdit, FaSave, FaTimes } from 'react-icons/fa';
 
 const MyProfile = () => {
-    const { user } = use(AuthContext);
+    const { user, updateUserProfile } = use(AuthContext);
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(user?.displayName || '');
     const [photoURL, setPhotoURL] = useState(user?.photoURL || '');
@@ -19,11 +19,10 @@ const MyProfile = () => {
             photoURL: photoURL
         })
         .then(() => {
-            user.reload().then(() => {
+            updateUserProfile().then(() => {
                 setMessage('Profile updated successfully!');
                 setIsEditing(false);
                 setTimeout(() => setMessage(''), 3000);
-                window.location.reload();
             });
         })
         .catch(err => {

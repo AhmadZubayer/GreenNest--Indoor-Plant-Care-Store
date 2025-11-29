@@ -61,12 +61,3 @@ export default AuthProvider;
 
 
 
-/**
- * 1. create a context and export 
- * 2. create a provider -- so that you can reuse the context in different places
- * 3. ensure you use the children prop
- * 4. make sure use the auth provider in the router 
- * 5. make the create user with email and password shared via provider
- * 6. set createUser in the authInfo object to share via context
- * 
-*/

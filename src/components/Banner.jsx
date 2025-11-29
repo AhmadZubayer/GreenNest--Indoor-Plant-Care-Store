@@ -2,17 +2,35 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation } from 'swiper/modules';
+import axios from 'axios';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
+import banner1 from '../assets/banner-images/1.jpg';
+import banner2 from '../assets/banner-images/2.jpg';
+import banner3 from '../assets/banner-images/3.jpg';
+import banner4 from '../assets/banner-images/4.jpg';
+import banner5 from '../assets/banner-images/5.jpg';
+import banner6 from '../assets/banner-images/6.jpg';
+import banner7 from '../assets/banner-images/7.jpg';
+
 const Banner = () => {
     const [bannerSlides, setBannerSlides] = useState([]);
 
+    const bannerImages = {
+        '/banner-images/1.jpg': banner1,
+        '/banner-images/2.jpg': banner2,
+        '/banner-images/3.jpg': banner3,
+        '/banner-images/4.jpg': banner4,
+        '/banner-images/5.jpg': banner5,
+        '/banner-images/6.jpg': banner6,
+        '/banner-images/7.jpg': banner7
+    };
+
     useEffect(() => {
-        fetch('/banner-content.json')
-            .then(res => res.json())
-            .then(data => setBannerSlides(data))
+        axios.get('/banner-content.json')
+            .then(res => setBannerSlides(res.data))
             .catch(err => console.error(err));
     }, []);
 
@@ -42,7 +60,7 @@ const Banner = () => {
                     <SwiperSlide key={index}>
                         <div className="relative h-full w-full">
                             <img
-                                src={slide.image}
+                                src={bannerImages[slide.image]}
                                 alt={slide.title}
                                 className="w-full h-full object-cover"
                             />
@@ -70,7 +88,7 @@ const Banner = () => {
                 ))}
             </Swiper>
             
-            {/* Custom Navigation and Controls */}
+     
             <div className="absolute bottom-6 right-6 flex items-center gap-3 z-10">
                 <button className="custom-prev w-10 h-10 rounded-full bg-white/90 hover:bg-white flex items-center justify-center shadow-lg transition-all">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

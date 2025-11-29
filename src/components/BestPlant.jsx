@@ -31,7 +31,6 @@ const BestPlant = ({ plantOfWeek }) => {
                             </Link>
                         </div>
                         
-                        {/* Image Side */}
                         <div className="h-full min-h-[400px] flex items-center justify-center p-4">
                             <img 
                                 src={plantOfWeek.image} 

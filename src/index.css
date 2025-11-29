@@ -14,7 +14,7 @@
   --color-accent: #706f6f;
 }
 
-/* Custom Swiper Pagination Styles - Chrome Web Store Style */
+
 .custom-pagination .swiper-pagination-bullet {
   width: 8px;
   height: 8px;
@@ -29,7 +29,7 @@
   background: #000;
 }
 
-/* Button Styles */
+
 .btn-primary {
   padding: 0.5rem 1.5rem;
   background-color: #16a34a;
@@ -73,7 +73,7 @@
   color: #ffffff;
 }
 
-/* Card Background */
+
 .card-bg {
   background-color: #f3f4f6;
   border-radius: 1rem;

@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Ethan Brooks",
+    "name": "Shihab Uddin",
     "specialization": "Specializes in low-light plant maintenance and air-purifying varieties",
     "image": "/src/assets/gardeners/1.jpg"
   },
@@ -13,7 +13,7 @@
   },
   {
     "id": 3,
-    "name": "Liam Harris",
+    "name": "Rohit Roy",
     "specialization": "Focuses on drought-tolerant plants and minimalist arrangements",
     "image": "/src/assets/gardeners/3.jpg"
   },

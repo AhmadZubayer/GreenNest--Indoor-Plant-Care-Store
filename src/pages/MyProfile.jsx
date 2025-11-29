@@ -19,12 +19,10 @@ const MyProfile = () => {
             photoURL: photoURL
         })
         .then(() => {
-            // Reload user to reflect changes immediately
             user.reload().then(() => {
                 setMessage('Profile updated successfully!');
                 setIsEditing(false);
                 setTimeout(() => setMessage(''), 3000);
-                // Force a re-render by updating state
                 window.location.reload();
             });
         })

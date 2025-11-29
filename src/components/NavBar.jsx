@@ -62,10 +62,10 @@ const NavBar = () => {
                         </ul>
                     </div>
                 ) : (
-                    <>
+                    <div className="flex flex-col md:flex-row gap-2">
                         <Link to="/login" className="btn-secondary">Sign In</Link>
                         <Link to="/signup" className="btn-primary">Register</Link>
-                    </>
+                    </div>
                 )}
             </div>
         </div>

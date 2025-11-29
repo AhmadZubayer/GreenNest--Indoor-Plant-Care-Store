@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router';
+import { Link, useNavigate, useLocation } from 'react-router';
 import { use } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { updateProfile } from 'firebase/auth';
@@ -9,10 +9,11 @@ import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import bgImage from '../assets/register-page/room-interior-design.jpg';
 
 const Signup = () => {
-    const { createUser, signInWithGoogle } = use(AuthContext);
+    const { createUser, signInWithGoogle, updateUserProfile } = use(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const location = useLocation();
 
     const handleSignup = (e) => {
         e.preventDefault();
@@ -47,11 +48,12 @@ const Signup = () => {
                 updateProfile(result.user, profile)
                     .then(() => {
                         //console.log('Profile updated');
-                        // Reload user to get updated profile
+                     
                         result.user.reload().then(() => {
+                            updateUserProfile(); // Force context update
                             toast.success('Account created successfully!');
                             form.reset();
-                            navigate('/');
+                            navigate(location?.state ? location.state : '/');
                         });
                     })
                     .catch(err => {
@@ -72,7 +74,7 @@ const Signup = () => {
             .then(result => {
                 //console.log(result.user);
                 toast.success('Signed up with Google successfully!');
-                navigate('/');
+                navigate(location?.state ? location.state : '/');
             })
             .catch(() => {
                 toast.error('Google sign-up failed');
@@ -173,7 +175,7 @@ const Signup = () => {
 
                     <p className="text-center mt-4">
                         Already have an account?{' '}
-                        <Link to="/login" className="text-blue-400 underline">
+                        <Link to="/login" state={location?.state} className="text-blue-400 underline">
                             Sign In
                         </Link>
                     </p>

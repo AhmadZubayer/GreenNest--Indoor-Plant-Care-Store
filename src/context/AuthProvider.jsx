@@ -32,7 +32,7 @@ const AuthProvider = ({ children }) => {
     const updateUserProfile = () => {
         if (auth.currentUser) {
             return auth.currentUser.reload().then(() => {
-                setUser(auth.currentUser);
+                setUser({...auth.currentUser}); // Force new object reference to trigger re-render
             });
         }
         return Promise.resolve();

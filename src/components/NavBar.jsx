@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink, Link } from 'react-router';
 import { use } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import logo from '../assets/logo/logo.png';
 
 const NavBar = () => {
     const { user, signOutUser } = use(AuthContext);
@@ -32,7 +33,8 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <Link to="/" className="btn btn-ghost text-xl flex items-center gap-2">
-                    🌱 <span>GreenNest</span>
+                    <img src={logo} alt="GreenNest Logo" className="w-10 h-10" />
+                    <span>GreenNest</span>
                 </Link>
             </div>
             <div className="navbar-center hidden lg:flex">
@@ -50,12 +52,12 @@ const NavBar = () => {
                                 <img src={user.photoURL || 'https://via.placeholder.com/150'} alt="User Avatar" />
                             </div>
                         </div>
-                        <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-                            <li className="px-4 py-2">
-                                <span className="font-semibold">{user.displayName || 'User'}</span>
+                        <ul tabIndex={0} className="menu menu-sm dropdown-content rounded-box z-1 mt-3 w-56 p-4 shadow card-bg">
+                            <li className="px-4 py-3">
+                                <span className="font-semibold text-lg">{user.displayName || 'User'}</span>
                             </li>
-                            <li>
-                                <button onClick={handleSignOut} className="text-red-600">Logout</button>
+                            <li className="px-2 py-2">
+                                <button onClick={handleSignOut} className="btn-red w-full text-center flex items-center justify-center">Sign Out</button>
                             </li>
                         </ul>
                     </div>

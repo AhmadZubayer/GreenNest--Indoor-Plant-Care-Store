@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router';
+import React, { useState, useEffect, useMemo } from 'react';
+import { Link, useLoaderData } from 'react-router';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination, Navigation, EffectFade } from 'swiper/modules';
 import 'swiper/css';
@@ -8,10 +8,22 @@ import 'swiper/css/navigation';
 import 'swiper/css/effect-fade';
 
 const Home = () => {
-    const [plants, setPlants] = useState([]);
+    const { plantData } = useLoaderData();
     const [careTips, setCareTips] = useState([]);
     const [experts, setExperts] = useState([]);
-    const [plantOfWeek, setPlantOfWeek] = useState(null);
+
+    // Derive plants and plantOfWeek from plantData using useMemo
+    const plants = useMemo(() => {
+        return plantData
+            .sort((a, b) => b.rating - a.rating)
+            .slice(0, 5);
+    }, [plantData]);
+
+    const plantOfWeek = useMemo(() => {
+        return plantData.reduce((prev, current) => 
+            (current.soldThisWeek > prev.soldThisWeek) ? current : prev
+        );
+    }, [plantData]);
 
     const bannerSlides = [
         {
@@ -59,23 +71,6 @@ const Home = () => {
     ];
 
     useEffect(() => {
-        fetch('/plants.json')
-            .then(res => res.json())
-            .then(data => {
-                // Sort by rating (highest first) and take top 5
-                const topRated = data
-                    .sort((a, b) => b.rating - a.rating)
-                    .slice(0, 5);
-                setPlants(topRated);
-                
-                // Find plant with most sales this week
-                const mostSold = data.reduce((prev, current) => 
-                    (current.soldThisWeek > prev.soldThisWeek) ? current : prev
-                );
-                setPlantOfWeek(mostSold);
-            })
-            .catch(err => console.error(err));
-
         fetch('/plant-care.json')
             .then(res => res.json())
             .then(data => setCareTips(data))
@@ -119,7 +114,7 @@ const Home = () => {
                                     alt={slide.title}
                                     className="w-full h-full object-cover"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent flex items-center">
+                                <div className="absolute inset-0 bg-linear-to-r from-black/50 to-transparent flex items-center">
                                     <div className="text-white px-12 max-w-2xl">
                                         <h1 className="text-5xl font-bold mb-4">
                                             {slide.title}
@@ -194,7 +189,7 @@ const Home = () => {
                                     <img 
                                         src={plant.image} 
                                         alt={plant.plantName} 
-                                        className="w-[110%] h-[110%] object-cover rounded-[1.5rem] group-hover:scale-105 transition-transform"
+                                        className="w-[110%] h-[110%] object-cover rounded-3xl group-hover:scale-105 transition-transform"
                                     />
                                 </div>
                                 
@@ -310,11 +305,11 @@ const Home = () => {
                                 </div>
                                 
                                 {/* Image Side */}
-                                <div className="h-full min-h-[400px] flex items-center justify-center p-8">
+                                <div className="h-full min-h-[400px] flex items-center justify-center p-4">
                                     <img 
                                         src={plantOfWeek.image} 
                                         alt={plantOfWeek.plantName}
-                                        className="w-[60%] h-[60%] object-contain rounded-2xl"
+                                        className="w-[78%] h-[78%] object-cover rounded-3xl shadow-md"
                                     />
                                 </div>
                             </div>

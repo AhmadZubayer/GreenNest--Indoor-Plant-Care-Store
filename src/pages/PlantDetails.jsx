@@ -1,21 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router';
+import React, { useState } from 'react';
+import { useLoaderData } from 'react-router';
 import { FaStar } from 'react-icons/fa';
 
 const PlantDetails = () => {
-    const { id } = useParams();
-    const [plant, setPlant] = useState(null);
+    const { plant } = useLoaderData();
     const [showSuccess, setShowSuccess] = useState(false);
-
-    useEffect(() => {
-        fetch('/plants.json')
-            .then(res => res.json())
-            .then(data => {
-                const foundPlant = data.find(p => p.plantId === parseInt(id));
-                setPlant(foundPlant);
-            })
-            .catch(err => console.error(err));
-    }, [id]);
 
     const handleBookConsultation = (e) => {
         e.preventDefault();
@@ -29,14 +18,6 @@ const PlantDetails = () => {
         }, 3000);
     };
 
-    if (!plant) {
-        return (
-            <div className="min-h-screen flex items-center justify-center">
-                <span className="loading loading-spinner loading-lg text-green-600"></span>
-            </div>
-        );
-    }
-
     return (
         <div className="container mx-auto px-4 py-12">
             {showSuccess && (
@@ -45,9 +26,9 @@ const PlantDetails = () => {
                 </div>
             )}
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div>
-                    <img src={plant.image} alt={plant.plantName} className="w-full rounded-lg shadow-lg" />
+                    <img src={plant.image} alt={plant.plantName} className="w-[70%] h-auto rounded-lg shadow-lg" />
                 </div>
 
                 <div>

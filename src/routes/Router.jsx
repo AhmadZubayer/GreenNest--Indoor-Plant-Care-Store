@@ -1,5 +1,5 @@
-import React from 'react';
-import { createBrowserRouter } from 'react-router';
+import { createBrowserRouter, redirect } from 'react-router';
+import axios from 'axios';
 import Root from '../layout/Root';
 import Home from '../pages/Home';
 import Login from '../pages/Login';
@@ -8,39 +8,64 @@ import ForgotPassword from '../pages/ForgotPassword';
 import AllPlants from '../pages/AllPlants';
 import PlantDetails from '../pages/PlantDetails';
 import MyProfile from '../pages/MyProfile';
+import NotFound from '../pages/NotFound';
 import PrivateRoute from '../context/PrivateRoute';
 
 const Router = createBrowserRouter([{
     path: "/",
-    element: <Root></Root>,
+    Component: Root,
     children: [
         {
-            path: "/",
-            element: <Home></Home>
+            index: true,
+            loader: async () => {
+                const res = await axios.get('/plants.json');
+                return { plantData: res.data };
+            },
+            Component: Home
         },
         {
             path: "/login",
-            element: <Login></Login>
+            Component: Login
         },
         {
             path: "/signup",
-            element: <Signup></Signup>
+            Component: Signup
         },
         {
             path: "/forgot-password",
-            element: <ForgotPassword></ForgotPassword>
+            Component: ForgotPassword
         },
         {
             path: "/allPlants",
-            element: <AllPlants></AllPlants>
+            loader: async () => {
+                const res = await axios.get('/plants.json');
+                return { plantData: res.data };
+            },
+            Component: AllPlants
         },
         {
             path: "/plant/:id",
-            element: <PrivateRoute><PlantDetails></PlantDetails></PrivateRoute>
+            loader: async ({ params }) => {
+                const res = await axios.get('/plants.json');
+                const plant = res.data.find((p) => p.plantId == params.id);
+                if (!plant) {
+                    return redirect('/plant-not-found');
+                }
+                return { plant };
+            },
+            element: <PrivateRoute><PlantDetails /></PrivateRoute>
         },
         {
             path: "/userProfile",
-            element: <PrivateRoute><MyProfile></MyProfile></PrivateRoute>
+            element: <PrivateRoute><MyProfile /></PrivateRoute>
+        },
+        {
+            path: "/plant-not-found",
+            Component: NotFound
+        },
+        {
+            path: "*",
+            Component: NotFound
         }
     ]
 }])

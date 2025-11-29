@@ -2,61 +2,60 @@ import React, { useState } from 'react';
 import { Link } from 'react-router';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth } from '../authentication/firebase.init';
+import toast, { Toaster } from 'react-hot-toast';
+import bgImage from '../assets/register-page/room-interior-design.jpg';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
-    const [error, setError] = useState('');
 
     const handleResetPassword = (e) => {
         e.preventDefault();
-        setMessage('');
-        setError('');
 
         sendPasswordResetEmail(auth, email)
             .then(() => {
-                setMessage('Password reset email sent! Check your inbox.');
+                toast.success('Password reset email sent! Check your inbox.');
+                setEmail('');
             })
             .catch((err) => {
-                setError(err.message);
+                toast.error(err.message);
             });
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-green-50 py-12 px-4">
-            <div className="card bg-white w-full max-w-md shadow-lg">
+        <div className="min-h-screen flex items-center justify-center py-12 px-4" style={{ backgroundImage: `url(${bgImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+            <Toaster 
+                position="top-center"
+                toastOptions={{
+                    error: {
+                        style: {
+                            background: '#fee2e2',
+                            color: '#991b1b',
+                        },
+                    },
+                }}
+            />
+            <div className="card-bg w-full mx-auto max-w-sm shrink-0 shadow-lg">
                 <div className="card-body">
-                    <h2 className="text-3xl font-bold text-center text-green-700 mb-6">Forgot Password</h2>
-                    
-                    {message && (
-                        <div className="alert alert-success mb-4">
-                            <span>{message}</span>
-                        </div>
-                    )}
-
-                    {error && (
-                        <div className="alert alert-error mb-4">
-                            <span>{error}</span>
-                        </div>
-                    )}
+                    <h1 className="text-3xl font-bold text-green-700">Forgot Password</h1>
+                    <p className="text-gray-600 mb-4">Enter your email to receive a password reset link</p>
 
                     <form onSubmit={handleResetPassword}>
-                        <div className="form-control mb-4">
+                        <fieldset className="fieldset">
                             <label className="label">
-                                <span className="label-text">Email</span>
+                                <span className="label-text font-semibold">Email</span>
                             </label>
                             <input
                                 type="email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 placeholder="Enter your email"
-                                className="input input-bordered"
+                                className="input input-bordered w-full"
                                 required
                             />
-                        </div>
+                        </fieldset>
 
-                        <div className="form-control mb-4">
-                            <button type="submit" className="btn bg-green-600 text-white hover:bg-green-700">
+                        <div className="form-control mt-6 flex items-center">
+                            <button type="submit" className="btn-primary mx-auto">
                                 Reset Password
                             </button>
                         </div>
@@ -64,7 +63,7 @@ const ForgotPassword = () => {
 
                     <p className="text-center mt-4">
                         Remember your password?{' '}
-                        <Link to="/login" className="link link-primary font-semibold">
+                        <Link to="/login" className="link text-green-700 font-semibold hover:underline">
                             Sign In
                         </Link>
                     </p>

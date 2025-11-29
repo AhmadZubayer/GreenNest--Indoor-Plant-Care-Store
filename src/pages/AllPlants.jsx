@@ -1,22 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router';
+import React from 'react';
+import { Link, useLoaderData } from 'react-router';
 
 const AllPlants = () => {
-    const [plants, setPlants] = useState([]);
-
-    useEffect(() => {
-        fetch('/plants.json')
-            .then(res => res.json())
-            .then(data => setPlants(data))
-            .catch(err => console.error(err));
-    }, []);
+    const { plantData } = useLoaderData();
 
     return (
         <div className="container mx-auto px-4 py-12">
-            <h2 className="text-4xl font-bold text-center text-green-700 mb-10">All Plants</h2>
+            <h2 className="text-4xl font-bold text-center text-green-700 mb-2">All Plants</h2>
+            <p className="text-center text-gray-600 mb-10">{plantData.length} plants available</p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-                {plants.map((plant) => {
+                {plantData.map((plant) => {
                     return (
                         <div key={plant.plantId} className="bg-gray-100 rounded-2xl shadow-sm hover:shadow-md hover:bg-green-50 transition-all overflow-hidden group">
                             {/* Image Section */}
@@ -24,7 +18,7 @@ const AllPlants = () => {
                                 <img 
                                     src={plant.image} 
                                     alt={plant.plantName} 
-                                    className="w-[110%] h-[110%] object-cover rounded-[1.5rem] group-hover:scale-105 transition-transform"
+                                    className="w-[110%] h-[110%] object-cover rounded-3xl group-hover:scale-105 transition-transform"
                                 />
                             </div>
                             

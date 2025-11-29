@@ -16,6 +16,7 @@ const PlantCard = ({ plant, className = "" }) => {
                 <h3 className="font-semibold text-gray-900 text-base mb-1 line-clamp-1">
                     {plant.plantName}
                 </h3>
+                <p className="text-sm font-semibold text-green-700 mb-2">${plant.price}</p>
                 
                 <div className="flex items-center gap-1 text-sm text-gray-600 mb-2">
                     <span className="text-yellow-500">★</span>
@@ -32,7 +33,7 @@ const PlantCard = ({ plant, className = "" }) => {
                 </p>
                 
                 <Link to={`/plant/${plant.plantId}`} className="btn-primary text-xs">
-                    See details
+                    View Details
                 </Link>
             </div>
         </div>

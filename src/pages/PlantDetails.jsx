@@ -1,30 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useLoaderData } from 'react-router';
 import { FaStar } from 'react-icons/fa';
+import toast, { Toaster } from 'react-hot-toast';
 
 const PlantDetails = () => {
     const { plant } = useLoaderData();
-    const [showSuccess, setShowSuccess] = useState(false);
 
     const handleBookConsultation = (e) => {
         e.preventDefault();
         const form = e.target;
-        
-        setShowSuccess(true);
         form.reset();
-
-        setTimeout(() => {
-            setShowSuccess(false);
-        }, 3000);
+        toast.success('Consultation booked successfully!');
     };
 
     return (
         <div className="container mx-auto px-4 py-12">
-            {showSuccess && (
-                <div className="alert alert-success mb-6">
-                    <span> Consultation booked successfully!</span>
-                </div>
-            )}
+            <Toaster position="top-center" />
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div>

@@ -3,13 +3,13 @@ import { use } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { updateProfile } from 'firebase/auth';
 import { FaUser, FaEnvelope, FaImage, FaEdit, FaSave, FaTimes } from 'react-icons/fa';
+import toast, { Toaster } from 'react-hot-toast';
 
 const MyProfile = () => {
     const { user, updateUserProfile } = use(AuthContext);
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(user?.displayName || '');
     const [photoURL, setPhotoURL] = useState(user?.photoURL || '');
-    const [message, setMessage] = useState('');
 
     const handleUpdateProfile = (e) => {
         e.preventDefault();
@@ -20,26 +20,20 @@ const MyProfile = () => {
         })
         .then(() => {
             updateUserProfile().then(() => {
-                setMessage('Profile updated successfully!');
+                toast.success('Profile updated successfully!');
                 setIsEditing(false);
-                setTimeout(() => setMessage(''), 3000);
             });
         })
         .catch(err => {
-            setMessage('Error updating profile: ' + err.message);
+            toast.error('Error updating profile: ' + err.message);
         });
     };
 
     return (
         <div className="container mx-auto px-4 py-12">
+            <Toaster position="top-center" />
             <div className="max-w-xl mx-auto">
                 <h2 className="text-4xl font-bold text-center text-green-700 mb-10">My Profile</h2>
-
-                {message && (
-                    <div className="alert alert-success mb-6">
-                        <span>{message}</span>
-                    </div>
-                )}
 
                 <div className="card-bg shadow-lg p-8">
                     <div className="flex flex-col items-center mb-8">

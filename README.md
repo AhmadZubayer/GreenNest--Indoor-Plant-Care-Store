@@ -1,7 +1,7 @@
-# LIVE LINK: 
+# LIVE LINK: https://greennest-indoorplantcare.web.app/
 # GreenNest - Indoor Plant Care Store
 
-GreenNest is an elegant single-page web application built for plant lovers who want to nurture and decorate their homes with healthy indoor plants.
+GreenNest is an elegant single-page (SPA) web application built for plant enthusiasts who want to nurture and decorate their homes with healthy indoor plants.
 
 ## Features
 
@@ -23,9 +23,6 @@ GreenNest is an elegant single-page web application built for plant lovers who w
 - Vite
 
 
-
-
-
 ## Features 
 
 ✅ Firebase Authentication (Email/Password & Google)  
@@ -38,5 +35,10 @@ GreenNest is an elegant single-page web application built for plant lovers who w
 ✅ Footer with social links  
 ✅ Home page with multiple sections  
 ✅ Toast notifications for user feedback  
+✅ Hosted Using Firebase
 
+
+## Use of AI
+AI (Claude Sonnet 4.5) has been used for learning purpose. 
+Used for Toast & Banner (Swiper.js) implementation. 
 

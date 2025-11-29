@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router';
-import { use } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import toast, { Toaster } from 'react-hot-toast';
 import { FcGoogle } from 'react-icons/fc';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import bgImage from '../assets/register-page/room-interior-design.jpg';
 
 const Login = () => {
-    const { signInUser, signInWithGoogle } = use(AuthContext);
+    const { signInUser, signInWithGoogle } = useContext(AuthContext);
+    const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -19,7 +20,7 @@ const Login = () => {
 
         signInUser(email, password)
             .then(result => {
-                console.log(result.user);
+                //console.log(result.user);
                 toast.success('Sign in successful!');
                 navigate(location?.state ? location.state : '/');
             })
@@ -31,7 +32,7 @@ const Login = () => {
     const handleGoogleSignIn = () => {
         signInWithGoogle()
             .then(result => {
-                console.log(result.user);
+                //console.log(result.user);
                 navigate(location?.state ? location.state : '/');
             })
             .catch(() => {
@@ -68,13 +69,22 @@ const Login = () => {
                             />
                             
                             <label className="label mt-4">Password</label>
-                            <input
-                                type="password"
-                                name="password"
-                                className="input input-bordered w-full"
-                                placeholder="Password"
-                                required
-                            />
+                            <div className="relative">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    name="password"
+                                    className="input input-bordered w-full"
+                                    placeholder="Password"
+                                    required
+                                />
+                                <button
+                                    type="button"
+                                    onClick={() => setShowPassword(!showPassword)}
+                                    className="btn btn-xs absolute right-3 top-1/2 -translate-y-1/2"
+                                >
+                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                </button>
+                            </div>
                             
                             <div className="mt-2">
                                 <Link to="/forgot-password" className="link link-hover text-green-600">

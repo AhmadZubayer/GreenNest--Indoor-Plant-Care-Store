@@ -44,7 +44,7 @@ const Signup = () => {
                 
                 updateProfile(result.user, profile)
                     .then(() => {
-                        console.log('Profile updated');
+                        //console.log('Profile updated');
                         // Reload user to get updated profile
                         result.user.reload().then(() => {
                             toast.success('Account created successfully!');
@@ -66,7 +66,7 @@ const Signup = () => {
     const handleGoogleSignIn = () => {
         signInWithGoogle()
             .then(result => {
-                console.log(result.user);
+                //console.log(result.user);
                 toast.success('Signed up with Google successfully!');
                 navigate('/');
             })

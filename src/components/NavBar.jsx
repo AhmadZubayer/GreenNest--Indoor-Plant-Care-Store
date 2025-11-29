@@ -54,7 +54,7 @@ const NavBar = () => {
                         </div>
                         <ul tabIndex={0} className="menu menu-sm dropdown-content rounded-box z-1 mt-3 w-56 p-4 shadow card-bg">
                             <li className="px-4 py-3">
-                                <span className="font-semibold text-lg">{user.displayName || 'User'}</span>
+                                <Link to="/userProfile" className="font-semibold text-lg hover:text-green-600">{user.displayName || 'User'}</Link>
                             </li>
                             <li className="px-2 py-2">
                                 <button onClick={handleSignOut} className="btn-red w-full text-center flex items-center justify-center">Sign Out</button>

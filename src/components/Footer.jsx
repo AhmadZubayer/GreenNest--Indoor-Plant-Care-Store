@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FaInstagram, FaFacebook, FaYoutube, FaLinkedin, FaGithub } from 'react-icons/fa';
+import { FaInstagram, FaFacebook, FaYoutube, FaLinkedin, FaGithub, FaPinterest } from 'react-icons/fa';
 import logo from '../assets/logo/logo.png';
 
 const Footer = () => {
@@ -47,6 +47,14 @@ const Footer = () => {
                                 className="hover:text-green-600 transition text-2xl"
                             >
                                 <FaFacebook />
+                            </a>
+                            <a 
+                                href="https://pinterest.com" 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="hover:text-green-600 transition text-2xl"
+                            >
+                                <FaPinterest />
                             </a>
                             <a 
                                 href="https://youtube.com" 

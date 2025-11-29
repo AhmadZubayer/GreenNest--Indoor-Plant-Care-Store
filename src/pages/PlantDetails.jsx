@@ -22,13 +22,13 @@ const PlantDetails = () => {
         <div className="container mx-auto px-4 py-12">
             {showSuccess && (
                 <div className="alert alert-success mb-6">
-                    <span>✓ Consultation booked successfully!</span>
+                    <span> Consultation booked successfully!</span>
                 </div>
             )}
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div>
-                    <img src={plant.image} alt={plant.plantName} className="w-[70%] h-auto rounded-lg shadow-lg" />
+                    <img src={plant.image} alt={plant.plantName} className="w-[70%] h-auto rounded-3xl shadow-lg" />
                 </div>
 
                 <div>

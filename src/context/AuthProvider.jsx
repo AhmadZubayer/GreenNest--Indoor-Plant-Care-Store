@@ -29,21 +29,12 @@ const AuthProvider = ({ children }) => {
         return signOut(auth);
     }
 
-    // useEffect(() => { }, [])
-    // useEffect( () =>{
-    //     // step -1: observer set 
-    //     // step-2: set in a variable
-    //     // step-3: return and call the variable so that you can clear the ref
-    // }, [])
-
     useEffect(() => {
-        // set the observer
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             console.log('current user  in auth state change', currentUser)
             setUser(currentUser);
             setLoading(false);
         })
-        // clear the observer on unmount
         return () => {
             unsubscribe();
         }

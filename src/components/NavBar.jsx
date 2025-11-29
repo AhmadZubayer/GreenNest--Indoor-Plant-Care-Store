@@ -64,7 +64,7 @@ const NavBar = () => {
                 ) : (
                     <>
                         <Link to="/login" className="btn-secondary">Sign In</Link>
-                        <Link to="/signup" className="btn-primary">Sign Up</Link>
+                        <Link to="/signup" className="btn-primary">Register</Link>
                     </>
                 )}
             </div>

@@ -10,6 +10,7 @@ const Home = () => {
     const { plantData } = useLoaderData();
     const [careTips, setCareTips] = useState([]);
     const [experts, setExperts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const plants = useMemo(() => {
         return plantData
@@ -24,15 +25,16 @@ const Home = () => {
     }, [plantData]);
 
     useEffect(() => {
-        fetch('/plant-care.json')
-            .then(res => res.json())
-            .then(data => setCareTips(data))
-            .catch(err => console.error(err));
-
-        fetch('/gardener-expert.json')
-            .then(res => res.json())
-            .then(data => setExperts(data))
-            .catch(err => console.error(err));
+        Promise.all([
+            fetch('/plant-care.json').then(res => res.json()),
+            fetch('/gardener-expert.json').then(res => res.json())
+        ])
+        .then(([careTipsData, expertsData]) => {
+            setCareTips(careTipsData);
+            setExperts(expertsData);
+        })
+        .catch(err => console.error(err))
+        .finally(() => setLoading(false));
     }, []);
 
     return (

@@ -9,6 +9,7 @@ import bgImage from '../assets/register-page/room-interior-design.jpg';
 const Login = () => {
     const { signInUser, signInWithGoogle } = useContext(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -18,6 +19,7 @@ const Login = () => {
         const email = form.email.value;
         const password = form.password.value;
 
+        setLoading(true);
         signInUser(email, password)
             .then(result => {
                 //console.log(result.user);
@@ -26,10 +28,12 @@ const Login = () => {
             })
             .catch(() => {
                 toast.error('Sign in failed. Please check your credentials.');
-            });
+            })
+            .finally(() => setLoading(false));
     };
 
     const handleGoogleSignIn = () => {
+        setLoading(true);
         signInWithGoogle()
             .then(result => {
                 //console.log(result.user);
@@ -37,7 +41,8 @@ const Login = () => {
             })
             .catch(() => {
                 toast.error('Google sign in failed');
-            });
+            })
+            .finally(() => setLoading(false));
     };
 
     return (
@@ -92,8 +97,8 @@ const Login = () => {
                                 </Link>
                             </div>
                             
-                            <button type="submit" className="btn-primary mt-4 w-full">
-                                Sign In
+                            <button type="submit" className="btn-primary mt-4 w-full" disabled={loading}>
+                                {loading ? <span className="loading loading-spinner loading-sm"></span> : 'Sign In'}
                             </button>
                         </fieldset>
                     </form>
@@ -103,9 +108,9 @@ const Login = () => {
                     <button
                         onClick={handleGoogleSignIn}
                         className="btn-secondary w-full flex items-center justify-center gap-2"
+                        disabled={loading}
                     >
-                        <FcGoogle className="text-xl" />
-                        Sign in with Google
+                        {loading ? <span className="loading loading-spinner loading-sm"></span> : <><FcGoogle className="text-xl" />Sign in with Google</>}
                     </button>
 
                     <p className="text-center mt-4">

@@ -17,6 +17,7 @@ import banner7 from '../assets/banner-images/7.jpg';
 
 const Banner = () => {
     const [bannerSlides, setBannerSlides] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const bannerImages = {
         '/banner-images/1.jpg': banner1,
@@ -31,8 +32,19 @@ const Banner = () => {
     useEffect(() => {
         axios.get('/banner-content.json')
             .then(res => setBannerSlides(res.data))
-            .catch(err => console.error(err));
+            .catch(err => console.error(err))
+            .finally(() => setLoading(false));
     }, []);
+
+    if (loading) {
+        return (
+            <section className="relative max-w-7xl mx-auto px-4 py-8">
+                <div className="flex items-center justify-center h-[440px]">
+                    <span className="loading loading-spinner loading-xl text-green-600"></span>
+                </div>
+            </section>
+        );
+    }
 
     return (
         <section className="relative max-w-7xl mx-auto px-4 py-8">

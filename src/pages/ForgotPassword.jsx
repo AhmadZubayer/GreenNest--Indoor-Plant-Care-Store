@@ -7,10 +7,12 @@ import bgImage from '../assets/register-page/room-interior-design.jpg';
 
 const ForgotPassword = () => {
     const [email, setEmail] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleResetPassword = (e) => {
         e.preventDefault();
 
+        setLoading(true);
         sendPasswordResetEmail(auth, email)
             .then(() => {
                 toast.success('Password reset email sent! Check your inbox.');
@@ -18,7 +20,8 @@ const ForgotPassword = () => {
             })
             .catch((err) => {
                 toast.error(err.message);
-            });
+            })
+            .finally(() => setLoading(false));
     };
 
     return (
@@ -55,8 +58,8 @@ const ForgotPassword = () => {
                         </fieldset>
 
                         <div className="form-control mt-6 flex items-center">
-                            <button type="submit" className="btn-primary mx-auto">
-                                Reset Password
+                            <button type="submit" className="btn-primary mx-auto" disabled={loading}>
+                                {loading ? <span className="loading loading-spinner loading-sm"></span> : 'Reset Password'}
                             </button>
                         </div>
                     </form>

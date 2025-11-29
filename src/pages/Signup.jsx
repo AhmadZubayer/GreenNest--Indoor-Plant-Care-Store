@@ -11,6 +11,7 @@ import bgImage from '../assets/register-page/room-interior-design.jpg';
 const Signup = () => {
     const { createUser, signInWithGoogle } = use(AuthContext);
     const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     const handleSignup = (e) => {
@@ -35,6 +36,7 @@ const Signup = () => {
             return;
         }
 
+        setLoading(true);
         createUser(email, password)
             .then(result => {
                 const profile = {
@@ -60,10 +62,12 @@ const Signup = () => {
             .catch(err => {
                 console.error('ERROR OCCURRED! ', err.message);
                 toast.error('Sign up failed');
-            });
+            })
+            .finally(() => setLoading(false));
     };
 
     const handleGoogleSignIn = () => {
+        setLoading(true);
         signInWithGoogle()
             .then(result => {
                 //console.log(result.user);
@@ -72,7 +76,8 @@ const Signup = () => {
             })
             .catch(() => {
                 toast.error('Google sign-up failed');
-            });
+            })
+            .finally(() => setLoading(false));
     };
 
     return (
@@ -150,8 +155,8 @@ const Signup = () => {
                                 </label>
                             </div>
                             
-                            <button type="submit" className="btn-primary mt-4 w-full">
-                                Sign Up
+                            <button type="submit" className="btn-primary mt-4 w-full" disabled={loading}>
+                                {loading ? <span className="loading loading-spinner loading-sm"></span> : 'Sign Up'}
                             </button>
                         </fieldset>
                     </form>
@@ -161,9 +166,9 @@ const Signup = () => {
                     <button
                         onClick={handleGoogleSignIn}
                         className="btn-secondary w-full flex items-center justify-center gap-2"
+                        disabled={loading}
                     >
-                        <FcGoogle className="text-xl" />
-                        Sign up with Google
+                        {loading ? <span className="loading loading-spinner loading-sm"></span> : <><FcGoogle className="text-xl" />Sign up with Google</>}
                     </button>
 
                     <p className="text-center mt-4">

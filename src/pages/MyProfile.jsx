@@ -10,10 +10,12 @@ const MyProfile = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [name, setName] = useState(user?.displayName || '');
     const [photoURL, setPhotoURL] = useState(user?.photoURL || '');
+    const [loading, setLoading] = useState(false);
 
     const handleUpdateProfile = (e) => {
         e.preventDefault();
         
+        setLoading(true);
         updateProfile(user, {
             displayName: name,
             photoURL: photoURL
@@ -26,7 +28,8 @@ const MyProfile = () => {
         })
         .catch(err => {
             toast.error('Error updating profile: ' + err.message);
-        });
+        })
+        .finally(() => setLoading(false));
     };
 
     return (
@@ -113,9 +116,9 @@ const MyProfile = () => {
                                     <button
                                         type="submit"
                                         className="btn-primary flex-1 flex items-center justify-center gap-2"
+                                        disabled={loading}
                                     >
-                                        <FaSave />
-                                        Save Changes
+                                        {loading ? <span className="loading loading-spinner loading-sm"></span> : <><FaSave />Save Changes</>}
                                     </button>
                                     <button
                                         type="button"

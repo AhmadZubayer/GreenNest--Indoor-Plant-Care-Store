@@ -3,7 +3,7 @@
     "id": 1,
     "name": "Shihab Uddin",
     "specialization": "Specializes in low-light plant maintenance and air-purifying varieties",
-    "image": "/gardeners/1.png"
+    "image": "/gardeners/1.jpg"
   },
   {
     "id": 2,
@@ -15,7 +15,7 @@
     "id": 3,
     "name": "Rohit Roy",
     "specialization": "Focuses on drought-tolerant plants and minimalist arrangements",
-    "image": "/gardeners/2.png"
+    "image": "/gardeners/3.jpg"
   },
   {
     "id": 4,
